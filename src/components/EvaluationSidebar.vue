@@ -92,7 +92,7 @@ const reasoningConfig = {
       <div class="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
         <div class="flex items-center justify-between mb-3">
           <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center">
               <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
               </svg>
@@ -111,7 +111,7 @@ const reasoningConfig = {
         <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
           <div
             class="h-full transition-all duration-500 ease-out rounded-full"
-            :class="isComplete ? 'bg-gradient-to-r from-emerald-400 to-emerald-500' : 'bg-gradient-to-r from-blue-400 to-indigo-500'"
+            :class="isComplete ? 'bg-gradient-to-r from-emerald-400 to-emerald-500' : 'bg-gradient-to-r from-brand-500 to-brand-600'"
             :style="{ width: `${completionPercentage}%` }"
           ></div>
         </div>
@@ -123,9 +123,9 @@ const reasoningConfig = {
 
       <!-- AI Correctness - Card Style -->
       <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-        <div class="px-4 py-3 bg-gradient-to-r from-violet-50 to-purple-50 border-b border-gray-100">
-          <label class="text-sm font-bold text-violet-900 flex items-center gap-2">
-            <svg class="w-4 h-4 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="px-4 py-3 bg-gradient-to-r from-brand-50 to-brand-100 border-b border-brand-100">
+          <label class="text-sm font-bold text-brand-800 flex items-center gap-2">
+            <svg class="w-4 h-4 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             AI Output Correctness
@@ -399,7 +399,7 @@ const reasoningConfig = {
         </div>
         <div class="p-4">
           <textarea
-            class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:bg-white transition-all duration-200 resize-none text-sm"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent focus:bg-white transition-all duration-200 resize-none text-sm"
             rows="3"
             placeholder="Add observations, concerns, or comments..."
             :value="evaluation.notes"

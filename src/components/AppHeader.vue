@@ -75,45 +75,52 @@ function handleExport() {
 </script>
 
 <template>
-  <header class="h-16 flex-shrink-0 bg-white border-b border-gray-200 shadow-sm">
+  <header class="h-16 flex-shrink-0 bg-gradient-to-r from-brand-600 to-brand-500 shadow-lg">
     <div class="h-full px-4 flex items-center justify-between">
-      <!-- Left: Navigation -->
-      <div class="flex items-center gap-2">
-        <button
-          @click="goToPrevious"
-          :disabled="currentIdx === 0"
-          class="btn btn-outline flex items-center gap-1"
-        >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-          </svg>
-          Previous
-        </button>
-        <button
-          @click="goToNext"
-          :disabled="currentIdx === store.totalCases - 1"
-          class="btn btn-outline flex items-center gap-1"
-        >
-          Next
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
+      <!-- Left: Logo and Navigation -->
+      <div class="flex items-center gap-4">
+        <img
+          src="https://jnkather.github.io/images/logo.png"
+          alt="Kather Lab Logo"
+          class="h-10 w-auto"
+        />
+        <div class="flex items-center gap-2">
+          <button
+            @click="goToPrevious"
+            :disabled="currentIdx === 0"
+            class="btn-header flex items-center gap-1"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Previous
+          </button>
+          <button
+            @click="goToNext"
+            :disabled="currentIdx === store.totalCases - 1"
+            class="btn-header flex items-center gap-1"
+          >
+            Next
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       <!-- Center: Title, Tabs, and Progress -->
       <div class="flex flex-col items-center">
         <div class="flex items-center gap-4">
-          <h1 class="text-lg font-bold text-gray-900">TumorBoardAI</h1>
+          <h1 class="text-lg font-bold text-white">TumorBoardAI</h1>
           <!-- Tab Navigation -->
-          <div class="flex bg-gray-100 rounded-lg p-1">
+          <div class="flex bg-white/20 rounded-lg p-1">
             <button
               @click="store.setActiveTab('evaluator')"
               :class="[
                 'px-3 py-1 text-sm font-medium rounded-md transition-all duration-200',
                 store.activeTab === 'evaluator'
-                  ? 'bg-white text-blue-600 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-white text-brand-600 shadow-sm'
+                  : 'text-white/80 hover:text-white hover:bg-white/10'
               ]"
             >
               Evaluator
@@ -123,8 +130,8 @@ function handleExport() {
               :class="[
                 'px-3 py-1 text-sm font-medium rounded-md transition-all duration-200',
                 store.activeTab === 'arena'
-                  ? 'bg-white text-violet-600 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-white text-brand-600 shadow-sm'
+                  : 'text-white/80 hover:text-white hover:bg-white/10'
               ]"
             >
               Arena
@@ -132,14 +139,11 @@ function handleExport() {
           </div>
         </div>
         <div class="flex items-center gap-3 text-sm">
-          <span :class="[
-            'font-semibold',
-            isArenaMode ? 'text-violet-600' : 'text-blue-600'
-          ]">
+          <span class="font-semibold text-accent-light">
             Case {{ currentIdx + 1 }} of {{ store.totalCases }}
           </span>
-          <span class="text-gray-400">|</span>
-          <span class="text-gray-600">
+          <span class="text-white/50">|</span>
+          <span class="text-white/80">
             {{ completedCount }} {{ isArenaMode ? 'judged' : 'evaluated' }}
           </span>
         </div>
@@ -156,21 +160,21 @@ function handleExport() {
         />
         <button
           @click="triggerImport"
-          class="btn btn-outline flex items-center gap-1"
+          class="btn-header flex items-center gap-1"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
           </svg>
-          Import JSON
+          Import
         </button>
         <button
           @click="handleExport"
-          class="btn btn-primary flex items-center gap-1"
+          class="btn-header-primary flex items-center gap-1"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
           </svg>
-          Export JSON
+          Export
         </button>
       </div>
     </div>

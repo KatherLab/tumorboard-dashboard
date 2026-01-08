@@ -13,9 +13,9 @@ const preferenceOptions: { value: ArenaPreference; label: string; icon: string; 
     value: 'model_a',
     label: 'Model A is Better',
     icon: 'A',
-    color: 'text-violet-700',
-    bgColor: 'bg-violet-50 hover:bg-violet-100',
-    borderColor: 'border-violet-300'
+    color: 'text-brand-700',
+    bgColor: 'bg-brand-50 hover:bg-brand-100',
+    borderColor: 'border-brand-300'
   },
   {
     value: 'model_b',
@@ -51,12 +51,6 @@ function updateReasoning(event: Event) {
   const target = event.target as HTMLTextAreaElement
   store.updateArenaJudgment({ reasoning: target.value })
 }
-
-function getSelectedClass(value: ArenaPreference) {
-  const option = preferenceOptions.find(o => o.value === value)
-  if (!option) return ''
-  return `ring-2 ring-offset-2 ring-${option.color.split('-')[1]}-500`
-}
 </script>
 
 <template>
@@ -73,23 +67,23 @@ function getSelectedClass(value: ArenaPreference) {
     <div class="flex-1 flex flex-col min-h-0 p-4 pt-2 gap-4">
       <!-- Side-by-side AI outputs -->
       <div class="flex-1 flex gap-4 min-h-0">
-        <!-- Model A -->
-        <div class="flex-1 bg-violet-50 rounded-xl shadow-sm border border-violet-200 flex flex-col overflow-hidden">
-          <div class="flex-shrink-0 px-4 py-3 border-b border-violet-200 bg-violet-100/50">
-            <h2 class="text-sm font-semibold text-violet-800 uppercase tracking-wide flex items-center gap-2">
-              <span class="w-6 h-6 rounded-full bg-violet-600 text-white flex items-center justify-center text-xs font-bold">A</span>
+        <!-- Model A - Brand Purple -->
+        <div class="flex-1 bg-brand-50 rounded-xl shadow-sm border border-brand-200 flex flex-col overflow-hidden">
+          <div class="flex-shrink-0 px-4 py-3 border-b border-brand-200 bg-brand-100/50">
+            <h2 class="text-sm font-semibold text-brand-800 uppercase tracking-wide flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-brand-600 text-white flex items-center justify-center text-xs font-bold">A</span>
               {{ currentCase.aiOutput.modelName || 'Model A' }}
             </h2>
           </div>
           <div class="flex-1 overflow-y-auto scrollbar-thin p-4 space-y-3">
             <div>
-              <h3 class="text-xs font-semibold text-violet-600 uppercase tracking-wide mb-2">Reasoning</h3>
-              <div class="text-gray-600 leading-relaxed whitespace-pre-wrap text-sm bg-violet-100/30 rounded-lg p-3 border border-violet-100">
+              <h3 class="text-xs font-semibold text-brand-600 uppercase tracking-wide mb-2">Reasoning</h3>
+              <div class="text-gray-600 leading-relaxed whitespace-pre-wrap text-sm bg-brand-100/30 rounded-lg p-3 border border-brand-100">
                 {{ currentCase.aiOutput.reasoningTrace }}
               </div>
             </div>
             <div>
-              <h3 class="text-xs font-semibold text-violet-600 uppercase tracking-wide mb-2">Recommendation</h3>
+              <h3 class="text-xs font-semibold text-brand-600 uppercase tracking-wide mb-2">Recommendation</h3>
               <div class="text-gray-900 font-medium leading-relaxed whitespace-pre-wrap text-[15px]">
                 {{ currentCase.aiOutput.recommendation }}
               </div>
@@ -97,7 +91,7 @@ function getSelectedClass(value: ArenaPreference) {
           </div>
         </div>
 
-        <!-- Model B -->
+        <!-- Model B - Cyan/Teal -->
         <div class="flex-1 bg-cyan-50 rounded-xl shadow-sm border border-cyan-200 flex flex-col overflow-hidden">
           <div class="flex-shrink-0 px-4 py-3 border-b border-cyan-200 bg-cyan-100/50">
             <h2 class="text-sm font-semibold text-cyan-800 uppercase tracking-wide flex items-center gap-2">
@@ -144,12 +138,11 @@ function getSelectedClass(value: ArenaPreference) {
                     ? 'ring-2 ring-offset-1 shadow-md scale-[1.02]'
                     : 'opacity-70 hover:opacity-100'
                 ]"
-                :style="currentCase.arenaJudgment?.preference === option.value ? `--tw-ring-color: var(--${option.color.split('-')[1]}-500)` : ''"
               >
                 <span
                   :class="[
                     'w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold',
-                    option.value === 'model_a' ? 'bg-violet-600 text-white' : '',
+                    option.value === 'model_a' ? 'bg-brand-600 text-white' : '',
                     option.value === 'model_b' ? 'bg-cyan-600 text-white' : '',
                     option.value === 'tie' ? 'bg-amber-500 text-white' : '',
                     option.value === 'both_bad' ? 'bg-red-500 text-white' : ''
@@ -169,7 +162,7 @@ function getSelectedClass(value: ArenaPreference) {
               :value="currentCase.arenaJudgment?.reasoning || ''"
               @input="updateReasoning"
               placeholder="Why did you choose this preference?"
-              class="w-full h-20 px-3 py-2 text-sm border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              class="w-full h-20 px-3 py-2 text-sm border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
             ></textarea>
           </div>
         </div>
