@@ -18,7 +18,16 @@
   }
 
   .btn-primary {
-    @apply bg-brand-600 text-white hover:bg-brand-700 focus:ring-brand-500;
+    @apply text-white;
+    background-color: #472183;
+  }
+
+  .btn-primary:hover {
+    background-color: #3a1b6b;
+  }
+
+  .btn-primary:focus {
+    --tw-ring-color: #4B56D2;
   }
 
   .btn-secondary {
@@ -40,9 +49,15 @@
 
   .btn-header-primary {
     @apply px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200;
-    @apply bg-white text-brand-600 border border-white;
-    @apply hover:bg-accent-light hover:text-brand-700 hover:border-accent-light;
+    @apply bg-white border border-white;
     @apply focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-0;
+    color: #472183;
+  }
+
+  .btn-header-primary:hover {
+    background-color: #82C3EC;
+    border-color: #82C3EC;
+    color: #3a1b6b;
   }
 
   .form-label {
@@ -50,15 +65,19 @@
   }
 
   .form-select {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200;
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200;
+    --tw-ring-color: #4B56D2;
   }
 
   .form-textarea {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200 resize-none;
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-200 resize-none;
+    --tw-ring-color: #4B56D2;
   }
 
   .form-checkbox {
-    @apply w-5 h-5 text-brand-600 border-gray-300 rounded focus:ring-brand-500 transition-all duration-200;
+    @apply w-5 h-5 border-gray-300 rounded transition-all duration-200;
+    color: #472183;
+    --tw-ring-color: #4B56D2;
   }
 
   .scrollbar-thin {
