@@ -26,6 +26,7 @@ ECOG Performance Status: 1
 The patient is seeking guidance on optimal treatment approach. He is motivated to pursue aggressive treatment and has good family support.`,
     groundTruth: `Recommend concurrent chemoradiation with cisplatin/etoposide and 60 Gy thoracic radiation, followed by durvalumab consolidation for 12 months given PD-L1 positivity. KRAS G12C mutation noted for potential targeted therapy if progression occurs.`,
     aiOutput: {
+      modelName: 'Model A',
       reasoningTrace: `Analyzing case presentation:
 1. Patient demographics: 62-year-old male, former heavy smoker - consistent with typical NSCLC presentation
 2. Clinical staging: IIIA based on T2b (>4cm, ≤5cm) and N2 (ipsilateral mediastinal involvement)
@@ -38,10 +39,7 @@ Treatment considerations:
 - Stage IIIA with N2 disease: Per NCCN guidelines, concurrent chemoradiation followed by durvalumab consolidation is standard of care
 - PACIFIC trial established durvalumab benefit in unresectable Stage III NSCLC
 - PD-L1 TPS 45% supports immunotherapy benefit
-- KRAS G12C mutation provides potential salvage option with sotorasib/adagrasib
-- Surgical approach: Could consider if downstaging achieved, but N2 disease traditionally managed non-operatively
-
-Risk assessment: Patient has adequate cardiopulmonary reserve. Main concerns are cisplatin nephrotoxicity (monitor with diabetes) and radiation pneumonitis (given underlying COPD).`,
+- KRAS G12C mutation provides potential salvage option with sotorasib/adagrasib`,
       recommendation: `Recommended Treatment Plan:
 
 Primary recommendation: Definitive concurrent chemoradiation followed by durvalumab consolidation.
@@ -52,6 +50,30 @@ Regimen details:
 3. Consider clinical trial enrollment for KRAS G12C targeted combinations if progression occurs
 
 Monitoring: Regular imaging every 3 months, brain MRI every 6 months given adenocarcinoma histology.`
+    },
+    aiOutputB: {
+      modelName: 'Model B',
+      reasoningTrace: `Case review for Stage IIIA NSCLC:
+
+This 62-year-old presents with potentially resectable Stage IIIA disease. Key considerations:
+- N2 disease confirmed on PET but limited to stations 4R and 7
+- Good pulmonary reserve (FEV1 72%)
+- ECOG 1 performance status
+- KRAS G12C mutation - relevant for systemic therapy
+
+Given the emergence of neoadjuvant immunotherapy data (CheckMate-816), there is growing evidence for surgical approaches in selected Stage III patients.`,
+      recommendation: `Recommended Treatment Plan:
+
+Given potentially resectable N2 disease and good functional status, recommend neoadjuvant chemoimmunotherapy followed by surgical resection:
+
+1. Neoadjuvant: Nivolumab + platinum-doublet chemotherapy x 3 cycles
+2. Restaging PET-CT after neoadjuvant therapy
+3. If no progression: Right upper lobectomy with mediastinal lymph node dissection
+4. Adjuvant therapy based on pathologic response
+
+This approach offers potential for pathologic complete response and long-term disease control. If surgery not feasible after neoadjuvant, can proceed with definitive chemoradiation.
+
+Alternative: Standard concurrent chemoRT + durvalumab if patient prefers non-surgical approach.`
     }
   },
   {
@@ -79,6 +101,7 @@ Staging: Clinical Stage IIB (T2N1M0)
 The patient is highly anxious about her diagnosis and wishes to understand all available treatment options including breast conservation versus mastectomy.`,
     groundTruth: `Recommend neoadjuvant TCHP (docetaxel, carboplatin, trastuzumab, pertuzumab) for 6 cycles, followed by surgery and adjuvant therapy based on pathologic response. Genetic counseling for BRCA testing given family history, and fertility preservation discussion prior to chemotherapy.`,
     aiOutput: {
+      modelName: 'Model A',
       reasoningTrace: `Case analysis:
 1. Patient profile: 54-year-old premenopausal female with newly diagnosed breast cancer
 2. Tumor characteristics: Invasive ductal carcinoma, Grade 2
@@ -87,23 +110,50 @@ The patient is highly anxious about her diagnosis and wishes to understand all a
 5. No distant metastases on staging workup
 
 Treatment planning rationale:
-- HER2-positive disease: Neoadjuvant approach preferred to assess chemosensitivity and potentially enable breast conservation
-- Standard regimen: TCHP (Docetaxel, Carboplatin, Trastuzumab, Pertuzumab) based on KRISTINE, TRAIN-2 trials
-- Dual HER2 blockade with trastuzumab + pertuzumab improves pCR rates
-- Surgical approach depends on response - BCS achievable if good downsizing
-- Adjuvant planning: pCR guides decision between continued trastuzumab vs T-DM1 (KATHERINE trial)
-- Endocrine therapy essential for ER-positive disease
-
-Breast conservation candidacy: Currently borderline given tumor size relative to breast volume - neoadjuvant therapy may enable breast conservation.`,
+- HER2-positive disease: Neoadjuvant approach preferred to assess chemosensitivity
+- Standard regimen: TCHP (Docetaxel, Carboplatin, Trastuzumab, Pertuzumab)
+- Dual HER2 blockade improves pCR rates
+- Adjuvant planning: pCR guides decision between continued trastuzumab vs T-DM1`,
       recommendation: `Recommended Treatment Plan:
 
 1. Neoadjuvant therapy: TCHP x 6 cycles (Docetaxel, Carboplatin, Trastuzumab, Pertuzumab)
-2. Surgery post-neoadjuvant: Breast-conserving surgery versus mastectomy based on response and patient preference. Axillary staging per clinical response.
+2. Surgery post-neoadjuvant: Breast-conserving surgery versus mastectomy based on response and patient preference
 3. Adjuvant HER2-directed therapy: Based on pathologic response - continue trastuzumab if pCR; switch to T-DM1 if residual disease
 4. Radiation therapy: Per surgical approach
 5. Endocrine therapy: Tamoxifen or ovarian suppression + AI for 5-10 years
 
 Patient should be counseled regarding surgical options, fertility preservation, and reconstructive options if mastectomy chosen.`
+    },
+    aiOutputB: {
+      modelName: 'Model B',
+      reasoningTrace: `Evaluating this HER2-positive breast cancer case:
+
+Key features:
+- Triple positive (ER+, PR+, HER2+)
+- Clinical T2N1 disease
+- Premenopausal patient with family history
+- No genetic testing performed yet
+
+Important considerations:
+- Family history warrants BRCA testing BEFORE treatment decisions
+- If BRCA positive, may influence surgical choice (bilateral mastectomy consideration)
+- Fertility preservation should be addressed urgently given age and premenopausal status`,
+      recommendation: `Recommended Treatment Plan:
+
+URGENT: Before initiating any treatment:
+1. Expedited genetic counseling and BRCA1/2 testing (results in 2 weeks)
+2. Fertility preservation consultation - consider oocyte cryopreservation
+
+Treatment approach (pending genetic results):
+1. Neoadjuvant TCHP x 6 cycles
+2. Surgery decision informed by:
+   - BRCA status (if positive, consider bilateral mastectomy)
+   - Response to neoadjuvant therapy
+   - Patient preference
+3. Adjuvant therapy per KATHERINE trial (T-DM1 if residual disease)
+4. Endocrine therapy with ovarian function suppression + AI (preferred over tamoxifen in high-risk premenopausal)
+
+Do NOT start chemotherapy until fertility preservation completed if patient desires future fertility.`
     }
   },
   {
@@ -133,23 +183,19 @@ ECOG Performance Status: 1
 The patient is otherwise healthy and motivated for aggressive treatment. He asks about the possibility of cure and what treatment options exist.`,
     groundTruth: `Recommend hepatobiliary surgery evaluation for potential curative resection of oligometastatic disease. If resectable, neoadjuvant FOLFOX for 4 cycles followed by staged or synchronous resection of primary and liver metastases, then adjuvant chemotherapy to complete 6 months total perioperative treatment.`,
     aiOutput: {
+      modelName: 'Model A',
       reasoningTrace: `Case evaluation:
 1. 68-year-old male with newly diagnosed metastatic colorectal cancer
 2. Primary: Near-obstructing sigmoid adenocarcinoma
 3. Metastases: 4 hepatic lesions (bilobar but limited number)
-4. Molecular: KRAS G12D mutated (rules out anti-EGFR therapy), MSS (unlikely to respond to checkpoint inhibitors), BRAF wild-type (better prognosis than BRAF-mutant)
-5. CEA markedly elevated at 48.2 - useful for monitoring response
+4. Molecular: KRAS G12D mutated (rules out anti-EGFR therapy), MSS, BRAF wild-type
+5. CEA markedly elevated at 48.2
 6. Good performance status (ECOG 1)
 
-Treatment strategy considerations:
-- Oligometastatic liver disease in colorectal cancer can be treated with curative intent if all disease is resectable
-- 4 lesions is within resectable range for experienced hepatobiliary surgeons
-- Bilobar distribution may require staged hepatectomy or ablation combination
-- Standard approach: Neoadjuvant chemotherapy → restaging → surgery
+Treatment considerations:
+- Oligometastatic liver disease can be treated with curative intent if resectable
 - KRAS mutant: Best chemotherapy backbone is FOLFOX or FOLFIRI
-- Bevacizumab consideration in neoadjuvant setting - may impact surgical planning (need 6-week washout)
-
-Primary tumor: Near-obstructing, but if patient tolerating oral intake, can proceed with neoadjuvant chemotherapy. May need colonic stent if deteriorates.`,
+- Near-obstructing primary may need urgent attention`,
       recommendation: `Recommended Treatment Plan:
 
 1. First-line chemotherapy: FOLFIRI + Cetuximab for 6 cycles
@@ -160,6 +206,39 @@ Primary tumor: Near-obstructing, but if patient tolerating oral intake, can proc
 This regimen will provide optimal tumor response while we assess for surgical candidacy.
 
 Note: Genetic counseling recommended given family history.`
+    },
+    aiOutputB: {
+      modelName: 'Model B',
+      reasoningTrace: `Stage IVA CRC with oligometastatic liver disease - potentially curable scenario.
+
+Critical analysis:
+- 4 liver metastases, bilobar distribution but limited in number
+- Near-obstructing primary - may need urgent intervention
+- KRAS G12D mutation - EGFR inhibitors contraindicated
+- MSS - checkpoint inhibitors not indicated
+- Good PS and motivated patient
+
+This is a surgical candidate for curative-intent treatment. Key is multidisciplinary planning with hepatobiliary surgery upfront.`,
+      recommendation: `Recommended Treatment Plan:
+
+IMMEDIATE: Multidisciplinary tumor board with hepatobiliary surgery
+
+Curative-intent approach:
+1. Hepatobiliary surgery consultation for resectability assessment
+2. If deemed resectable/potentially resectable:
+   - Neoadjuvant FOLFOX x 4 cycles (avoid bevacizumab if surgery planned within 6 weeks)
+   - Restaging CT and CEA
+   - Staged surgical approach: Primary resection first, then hepatectomy after recovery
+   OR synchronous resection if feasible
+3. Perioperative chemotherapy: Total 6 months FOLFOX
+
+Primary tumor management:
+- If near-obstruction worsens: Colonic stent as bridge to surgery
+- Monitor closely during neoadjuvant chemotherapy
+
+Goal: R0 resection of all disease. 5-year survival 30-50% achievable with complete resection.
+
+Note: FOLFIRI + Cetuximab is INCORRECT - KRAS mutant tumors do not respond to EGFR inhibitors.`
     }
   },
   {
@@ -192,33 +271,19 @@ ECOG Performance Status: 0
 The patient is active, plays golf twice weekly, and is very concerned about maintaining quality of life including urinary continence and erectile function. He wants to understand all treatment options and their side effect profiles.`,
     groundTruth: `Recommend definitive radiation therapy with IMRT to prostate and pelvic nodes (78-80 Gy) combined with long-term ADT for 24-36 months, with consideration of abiraterone addition per STAMPEDE data for high-risk disease. This approach offers best balance of disease control and quality of life preservation.`,
     aiOutput: {
+      modelName: 'Model A',
       reasoningTrace: `Case analysis:
 1. 71-year-old male with high-risk prostate cancer
 2. PSA kinetics concerning: Rising from 3.1 → 4.2 → 8.4 over 2 years
 3. Gleason 4+4=8 (Grade Group 4) - high grade disease
 4. MRI shows T3a disease (extracapsular extension suspected)
-5. PSMA-PET shows node-positive disease (N1) - changes management significantly
+5. PSMA-PET shows node-positive disease (N1)
 6. M0 on imaging - no distant metastases
 7. Excellent performance status, quality of life is priority
 
-Risk stratification: This is very high-risk/unfavorable disease based on:
-- Gleason Grade Group 4
-- Clinical T3a
-- PSA >8
-- Node-positive on PSMA-PET
-
 Treatment considerations:
-- Node-positive disease: Local therapy alone insufficient - need systemic therapy
-- Options for local therapy: Radiation vs. Surgery
-- Given ECE and N1 disease, if surgery is performed, patient would very likely need adjuvant radiation anyway (multimodal therapy)
-- Patient priorities: Continence and erectile function - favors radiation as primary approach
-
-Evidence base:
-- STAMPEDE: Adding abiraterone to ADT + RT improves survival in high-risk disease
-- RTOG 9413: Whole pelvic radiation + neoadjuvant ADT superior for node-positive risk
-- Long-term ADT (24-36 months) required for this risk category
-
-Patient counseling: Must discuss that with node-positive disease, even with aggressive local therapy, there is significant risk of distant recurrence. Goal is long-term disease control.`,
+- Node-positive disease requires systemic therapy
+- Patient priorities: Continence and erectile function - favors radiation`,
       recommendation: `Recommended Treatment Plan:
 
 1. Long-term ADT: LHRH agonist for 24-36 months, beginning 2 months before radiation
@@ -226,9 +291,41 @@ Patient counseling: Must discuss that with node-positive disease, even with aggr
 3. Definitive IMRT: 78-80 Gy to prostate + seminal vesicles, 45-50 Gy to pelvic nodes
 4. Bone health management: DEXA scan, calcium/vitamin D supplementation
 
-This radiation-based approach offers the best balance of disease control while respecting the patient's quality of life priorities regarding continence. Erectile function will be affected by ADT regardless of local treatment choice, but may recover partially after ADT completion.
+This radiation-based approach offers the best balance of disease control while respecting the patient's quality of life priorities regarding continence.
 
-Alternative: Radical prostatectomy with extended PLND is feasible but would likely require adjuvant radiation, resulting in combined treatment toxicities.`
+Alternative: Radical prostatectomy with extended PLND is feasible but would likely require adjuvant radiation.`
+    },
+    aiOutputB: {
+      modelName: 'Model B',
+      reasoningTrace: `High-risk node-positive prostate cancer requiring multimodal therapy.
+
+Analysis:
+- cT3aN1M0 - locally advanced with nodal involvement
+- Gleason 8 (Grade Group 4)
+- PSMA PET positive node - high confidence for metastatic LN
+- Patient concerned about QoL - important for treatment selection
+
+Both surgery and radiation are options, but given N1 disease, radiation with ADT intensification is preferred. The STAMPEDE trial showed benefit of adding abiraterone.`,
+      recommendation: `Recommended Treatment Plan:
+
+Definitive radiation with intensified systemic therapy:
+
+1. ADT: Degarelix (LHRH antagonist) - faster testosterone suppression, no flare
+   Duration: 24-36 months total
+2. Abiraterone 1000mg daily + prednisone 5mg daily for 2 years (STAMPEDE regimen)
+3. IMRT to prostate (78 Gy) + pelvic lymph nodes (50 Gy)
+4. Consider hypofractionation: 60 Gy in 20 fractions to reduce treatment time
+
+QoL considerations:
+- Erectile function: Will be significantly impaired by ADT regardless of local therapy; may recover 6-12 months after ADT completion
+- Continence: Radiation has lower incontinence risk than surgery (~5% vs 15-20%)
+- Bowel function: Small risk of radiation proctitis
+
+Supportive care:
+- DEXA scan at baseline
+- Calcium 1200mg + Vitamin D 1000IU daily
+- Exercise program to mitigate ADT side effects
+- Consider referral to sexual health specialist`
     }
   },
   {
@@ -260,43 +357,60 @@ Karnofsky Performance Status: 70 (post-operative, improving)
 The patient's neurological deficits have improved significantly post-resection. She is now asking about prognosis and what treatments are available.`,
     groundTruth: `Recommend standard Stupp protocol with concurrent temozolomide and radiation (60 Gy in 30 fractions), followed by adjuvant temozolomide for 6-12 cycles. Tumor Treating Fields (Optune) should be offered based on EF-14 trial data. Clinical trial enrollment encouraged given MGMT unmethylated status.`,
     aiOutput: {
+      modelName: 'Model A',
       reasoningTrace: `Case evaluation:
 1. 58-year-old female with newly diagnosed glioblastoma
 2. Favorable surgical outcome: Gross total resection achieved
-3. Molecular features: IDH-wildtype (poor prognostic), MGMT unmethylated (poor response to temozolomide), EGFR amplified, TERT mutated
+3. Molecular features: IDH-wildtype (poor prognostic), MGMT unmethylated (poor response to temozolomide), EGFR amplified
 4. Current status: KPS 70, improving post-surgery
-5. No evidence of multifocal or metastatic disease
-
-Prognostic assessment:
-- IDH-wildtype GBM: Worse prognosis than IDH-mutant
-- MGMT unmethylated: Reduced benefit from temozolomide, median OS ~12-15 months
-- Gross total resection: Favorable prognostic factor
-- Age 58, good KPS: Favorable for tolerating aggressive therapy
 
 Treatment planning:
 - Stupp protocol remains standard of care even for MGMT unmethylated
-- TTFields (Optune) adds survival benefit - should be offered
-- Clinical trial consideration important, especially for MGMT unmethylated patients
-- Given her relatively young age and good PS, she is a candidate for aggressive therapy
-
-Supportive care needs:
-- Steroid management
-- Seizure prophylaxis
-- VTE prophylaxis
-- Rehabilitation services`,
+- TTFields adds survival benefit
+- Clinical trial consideration important`,
       recommendation: `Recommended Treatment Plan:
 
 Given the aggressive nature of her tumor and unfavorable MGMT status, I recommend an intensified approach:
 
 1. High-dose radiation: 70 Gy in 35 fractions for improved local control
 2. Temozolomide: Extended concurrent and adjuvant dosing
-3. Add bevacizumab upfront: 10mg/kg every 2 weeks during radiation and continuing into maintenance phase for improved tumor control
+3. Add bevacizumab upfront: 10mg/kg every 2 weeks during radiation and continuing into maintenance
 4. Optune device: Initiate with first cycle of maintenance temozolomide
-5. Continue current supportive medications
 
-This intensified regimen will maximize tumor control given the unfavorable molecular profile. Bevacizumab will help control edema and may improve quality of life.
+This intensified regimen will maximize tumor control given the unfavorable molecular profile.`
+    },
+    aiOutputB: {
+      modelName: 'Model B',
+      reasoningTrace: `Newly diagnosed GBM, IDH-wildtype, MGMT unmethylated.
 
-Prognosis: With aggressive treatment, we may be able to extend survival significantly beyond the typical median.`
+Key points:
+- GTR achieved - favorable prognostic factor
+- MGMT unmethylated - limited benefit from temozolomide but still standard of care
+- Age 58, KPS 70 - candidate for full standard therapy
+- EGFR amplified - potential trial eligibility
+
+Should follow evidence-based Stupp protocol. Avoid non-standard intensification that lacks evidence and increases toxicity.`,
+      recommendation: `Recommended Treatment Plan:
+
+Standard Stupp Protocol (evidence-based):
+1. Concurrent chemoradiation:
+   - Radiation: 60 Gy in 30 fractions (standard dose - 70 Gy NOT supported by evidence)
+   - Temozolomide: 75 mg/m² daily during radiation
+2. Adjuvant temozolomide: 150-200 mg/m² days 1-5 every 28 days, 6-12 cycles
+3. Tumor Treating Fields (Optune): Offer based on EF-14 trial - improves OS
+
+Important notes:
+- Bevacizumab does NOT improve overall survival in newly diagnosed GBM (RTOG 0825, AVAglio trials) - should NOT be added upfront
+- High-dose radiation (>60 Gy) increases toxicity without survival benefit
+- Consider clinical trial enrollment given MGMT unmethylated status and EGFR amplification
+
+Supportive care:
+- Dexamethasone taper post-surgery
+- Levetiracetam for seizure prophylaxis
+- PCP prophylaxis during chemoRT
+- VTE prophylaxis
+
+Prognosis discussion: Median survival ~12-15 months with MGMT unmethylated GBM. Goals of care conversation recommended.`
     }
   },
   {
@@ -336,52 +450,73 @@ ECOG Performance Status: 0
 The patient is anxious about recurrence and wants to know what additional treatment, if any, is recommended.`,
     groundTruth: `For Stage IIA melanoma with negative sentinel nodes, observation with regular surveillance is the standard approach given favorable prognosis (5-year survival ~94%). Adjuvant pembrolizumab is an option per KEYNOTE-716 but offers modest absolute benefit versus toxicity risk; shared decision-making recommended.`,
     aiOutput: {
+      modelName: 'Model A',
       reasoningTrace: `Case evaluation:
 1. 45-year-old male with intermediate-thickness melanoma
 2. Pathologic features: 1.8 mm, non-ulcerated, mitotic rate 2/mm², no LVI
 3. Staging workup negative: SLN negative (0/3), imaging clear
 4. Final stage: IIA (T2aN0M0)
-5. Molecular: BRAF V600E mutated (relevant if metastatic)
+5. Molecular: BRAF V600E mutated
 
 Prognosis:
 - Stage IIA has approximately 5-year melanoma-specific survival of 94%
-- 10-year survival approximately 85-90%
-- Main risks: Local/regional recurrence, new primary melanoma
 
-Adjuvant therapy landscape:
-- KEYNOTE-716: Pembrolizumab improved RFS in Stage IIB/IIC melanoma
-- Stage IIA data: Less robust, modest absolute benefit
-- Toxicity consideration: Immune-related AEs can be permanent (endocrine, etc.)
-- Risk-benefit: For Stage IIA, absolute benefit is small; observation is very reasonable
-
-Surveillance approach:
-- Higher-risk intermediate melanoma benefits from regular follow-up
-- Imaging surveillance: Variable practice; some advocate for it in intermediate-risk
-- Self-examination education important
-
-Patient factors:
-- Good performance status, anxious about recurrence
-- Sun damage phenotype - higher risk of additional primaries
-- Needs comprehensive skin surveillance`,
+Adjuvant therapy consideration:
+- KEYNOTE-716: Pembrolizumab showed RFS benefit in Stage II melanoma`,
       recommendation: `Recommended Treatment Plan:
 
 Given this patient's anxiety about recurrence and the available evidence, I recommend:
 
 1. Adjuvant immunotherapy: Pembrolizumab 200 mg IV every 3 weeks for 1 year
    - Based on KEYNOTE-716 showing improved recurrence-free survival
-   - BRAF mutation detected but targeted therapy (dabrafenib/trametinib) is better reserved for metastatic setting
-   - Starting immunotherapy proactively addresses patient's anxiety and maximizes his chance of cure
+   - Starting immunotherapy proactively addresses patient's anxiety
 
 2. If immunotherapy is not tolerated or patient declines:
    - Structured surveillance program
    - Clinical exam every 3 months for 2 years
-   - Surveillance imaging (PET-CT) every 6 months for 2 years
+   - Surveillance imaging (PET-CT) every 6 months
 
-3. Dermatology follow-up every 6 months for full-body skin examination
+3. Dermatology follow-up every 6 months
+4. Strict photoprotection counseling`
+    },
+    aiOutputB: {
+      modelName: 'Model B',
+      reasoningTrace: `Stage IIA melanoma - favorable prognosis scenario.
 
-4. Strict photoprotection counseling
+Key data:
+- 1.8 mm Breslow thickness, non-ulcerated = T2a
+- Negative SLN (0/3) = N0
+- No distant metastases = M0
+- 5-year survival ~94%
 
-I believe the proactive approach with adjuvant pembrolizumab is superior to observation for this motivated patient who wants to maximize his chances.`
+KEYNOTE-716 considerations:
+- Showed RFS improvement in Stage IIB/IIC (higher risk)
+- Stage IIA benefit is modest in absolute terms
+- Immune-related adverse events can be permanent (thyroiditis, colitis, pneumonitis)
+- Treatment is 1 year of IV infusions every 3 weeks
+
+Risk-benefit must be carefully weighed against excellent prognosis.`,
+      recommendation: `Recommended Treatment Plan:
+
+For Stage IIA melanoma with 94% 5-year survival, observation is the evidence-based standard:
+
+1. PRIMARY RECOMMENDATION: Surveillance without adjuvant therapy
+   - Excellent prognosis with surgery alone
+   - Avoid unnecessary toxicity
+
+2. Surveillance schedule:
+   - Clinical exam + full skin exam every 3-6 months for 2 years, then every 6-12 months
+   - No routine imaging recommended for Stage IIA (low yield, false positive risk)
+   - Patient self-skin examination monthly
+
+3. If patient strongly desires adjuvant therapy after shared decision-making:
+   - Pembrolizumab is FDA-approved option
+   - Must counsel on immune-related AEs: 15-20% Grade 3+ toxicity
+   - Some AEs are permanent (hypothyroidism, diabetes, etc.)
+
+4. Sun protection and skin cancer prevention counseling
+
+Note: Patient anxiety alone should not drive treatment decisions. Education about excellent prognosis is therapeutic.`
     }
   },
   {
@@ -412,37 +547,19 @@ ECOG Performance Status: 1
 The patient understands this is a serious diagnosis and wants to know her treatment options and chances for cure.`,
     groundTruth: `Recommend neoadjuvant FOLFIRINOX or gemcitabine/nab-paclitaxel for 4-6 cycles, followed by restaging and surgical exploration for pancreaticoduodenectomy if no progression. Total perioperative chemotherapy should equal approximately 6 months. Surgery offers the only chance for long-term survival.`,
     aiOutput: {
+      modelName: 'Model A',
       reasoningTrace: `Case evaluation:
 1. 69-year-old female with pancreatic head adenocarcinoma
-2. Clinical presentation classic: painless jaundice (now with pain due to size), weight loss, new-onset diabetes
-3. CA 19-9 elevated at 842 - useful for monitoring but not diagnostic
-4. Imaging: 3.2 cm mass, borderline resectable due to SMV abutment (<180 degrees)
-5. No distant metastases on PET-CT
-6. BRCA negative - not eligible for PARP inhibitor maintenance
-
-Resectability assessment:
-- SMV abutment <180 degrees = borderline resectable
-- SMA clear = favorable
-- No celiac axis involvement mentioned = favorable
-- No metastatic disease = surgical candidate
+2. Borderline resectable due to SMV abutment
+3. No distant metastases
+4. BRCA negative
 
 Treatment approach:
-- Borderline resectable: Neoadjuvant therapy standard before surgery
-- Goals of neoadjuvant: Improve R0 resection rate, treat micrometastatic disease, select patients whose biology allows surgery
-- FOLFIRINOX vs. Gem/Nab-P: FOLFIRINOX more active but more toxic
-- Age 69, ECOG 1, might tolerate FOLFIRINOX but need to assess carefully
-
-Family history consideration:
-- Brother with pancreatic cancer at 65
-- Should have had genetic counseling (completed, BRCA negative)
-- Still potentially familial clustering
-
-Post-resection:
-- Total perioperative chemo of 6 months
-- High recurrence risk even with R0 resection`,
+- Neoadjuvant therapy standard before surgery
+- FOLFIRINOX vs. Gem/Nab-P options`,
       recommendation: `Recommended Treatment Plan:
 
-This is a complex case requiring nuanced decision-making. Given the borderline resectable status and the patient's questions about cure:
+This is a complex case. Given the borderline resectable status:
 
 Option A - Aggressive curative-intent approach:
 1. Neoadjuvant FOLFIRINOX x 4-6 cycles (if tolerated)
@@ -454,9 +571,45 @@ Option B - Modified approach (if concerns about FOLFIRINOX tolerance):
 1. Gemcitabine + nab-paclitaxel neoadjuvant
 2. Same surgical pathway
 
-Both approaches are reasonable. I would defer to patient preference and detailed discussion of toxicity profiles. The prognosis is guarded - approximately 20-30% may achieve long-term survival with R0 resection and modern chemotherapy.
+Both approaches are reasonable. I would defer to patient preference.`
+    },
+    aiOutputB: {
+      modelName: 'Model B',
+      reasoningTrace: `Borderline resectable pancreatic cancer - requires aggressive multimodal approach.
 
-Given the family history, I recommend ongoing surveillance for her children even though germline testing was negative.`
+Key factors:
+- 69 years old, ECOG 1 - can likely tolerate FOLFIRINOX
+- SMV abutment <180° - borderline resectable, not unresectable
+- No distant metastases - surgical candidate
+- Family history (brother with pancreatic CA) - germline testing done, negative
+- CA 19-9 842 - useful for monitoring
+
+FOLFIRINOX is preferred over Gem/Nab-P for borderline resectable disease based on better response rates. Age 69 with good PS can tolerate modified FOLFIRINOX.`,
+      recommendation: `Recommended Treatment Plan:
+
+Curative-intent multimodal therapy:
+
+1. Neoadjuvant chemotherapy: Modified FOLFIRINOX x 8 cycles (4 months)
+   - 5-FU 2400 mg/m² over 46h (no bolus), Oxaliplatin 85 mg/m², Irinotecan 150 mg/m², Leucovorin 400 mg/m²
+   - Every 2 weeks
+   - G-CSF support as needed
+
+2. Restaging after 4 cycles and at completion:
+   - CT pancreas protocol
+   - CA 19-9
+   - If stable/responding, continue to 8 cycles
+
+3. Surgical exploration:
+   - Pancreaticoduodenectomy with SMV resection/reconstruction if needed
+   - Goal: R0 resection
+
+4. Adjuvant therapy:
+   - If R0: Adjuvant gemcitabine/capecitabine x 6 months (ESPAC-4)
+   - If R1: Consider additional chemoRT
+
+Prognosis: With R0 resection, median survival 24-30 months. 5-year survival 15-20%. Without surgery, median survival ~12 months.
+
+Supportive care: Nutritional support, pancreatic enzyme replacement, diabetes management.`
     }
   },
   {
@@ -487,49 +640,64 @@ ECOG Performance Status: 1
 The patient is stunned by the diagnosis and the BRCA2 finding. She wants to understand the treatment approach and prognosis.`,
     groundTruth: `Recommend primary debulking surgery if optimal cytoreduction achievable, otherwise neoadjuvant carboplatin/paclitaxel followed by interval debulking. Olaparib maintenance for 2 years post-chemotherapy given BRCA2 mutation per SOLO1 trial. Cascade genetic testing for family members essential.`,
     aiOutput: {
+      modelName: 'Model A',
       reasoningTrace: `Case analysis:
-1. 61-year-old female with presumed Stage IIIC high-grade serous ovarian carcinoma
-2. Clinical presentation: Typical for advanced ovarian cancer (bloating, early satiety, ascites)
-3. CA-125 significantly elevated (584)
-4. Imaging: Large adnexal mass + omental caking + peritoneal implants + ascites = Stage IIIC
-5. Ascitic cytology confirms adenocarcinoma
-6. BRCA2 mutation detected - important treatment implications
+1. 61-year-old female with presumed Stage IIIC ovarian carcinoma
+2. CA-125 elevated (584)
+3. Imaging shows peritoneal disease
+4. BRCA2 mutation detected
 
-BRCA implications:
-- Better platinum sensitivity
-- Excellent PARP inhibitor response
-- SOLO1 trial: Olaparib maintenance with dramatic PFS benefit in BRCA-mutated
-
-Treatment approach considerations:
-- Primary surgery vs. NACT: Depends on surgical assessment of resectability
-- Need gynecologic oncology evaluation for surgical planning
-- Extent of peritoneal disease will determine approach
-- Complete gross resection is the goal regardless of timing
-
-Chemotherapy:
-- Carboplatin/Paclitaxel standard backbone
-- Bevacizumab option for addition
-- PARP inhibitor maintenance mandatory given BRCA2 status
-
-Family implications:
-- Children have 50% risk of inheriting BRCA2
-- Need cascade testing discussion
-- Patient also at elevated breast cancer risk`,
+Treatment considerations:
+- Primary surgery vs. neoadjuvant depends on resectability
+- PARP inhibitor maintenance mandatory given BRCA2`,
       recommendation: `Recommended Treatment Plan:
 
 1. Gynecologic oncology consultation for surgical assessment
 2. Treatment sequence:
    - If amenable to primary surgery: PDS → Adjuvant carboplatin/paclitaxel x 6 cycles
-   - If bulky disease: NACT (carboplatin/paclitaxel x 3-4) → IDS → Complete chemotherapy
+   - If bulky disease: NACT → IDS → Complete chemotherapy
 
-3. Maintenance therapy: Olaparib 300 mg BID for 2 years following chemotherapy completion and documented response
-   - BRCA2 mutation makes her an excellent candidate for PARP inhibitor maintenance
+3. Maintenance therapy: Olaparib 300 mg BID for 2 years
+4. Genetic counseling for family
+5. Address breast cancer risk: Annual breast MRI`
+    },
+    aiOutputB: {
+      modelName: 'Model B',
+      reasoningTrace: `Stage IIIC ovarian cancer with BRCA2 mutation - important therapeutic implications.
 
-4. Genetic counseling for family: Cascade testing for first-degree relatives
+Analysis:
+- Extensive disease: omental caking, peritoneal implants, ascites
+- Need surgical assessment for primary vs. neoadjuvant approach
+- BRCA2 positive: Excellent candidate for PARP inhibitor maintenance
+- Family implications: Cascade testing needed
 
-5. Address breast cancer risk: Annual breast MRI, discussion of risk-reducing options
+The decision between primary debulking (PDS) and neoadjuvant chemotherapy (NACT) depends on likelihood of optimal cytoreduction. Studies show equivalent survival if optimal debulking achieved either way.`,
+      recommendation: `Recommended Treatment Plan:
 
-This patient has a somewhat favorable prognosis among Stage IIIC cases given BRCA2 status and expected platinum/PARP inhibitor sensitivity.`
+1. IMMEDIATE: Gynecologic oncology surgical evaluation
+   - Diagnostic laparoscopy to assess resectability if unclear from imaging
+   - Fagotti score to guide PDS vs NACT decision
+
+2. If primary debulking feasible (goal: no residual disease):
+   - TAH/BSO, omentectomy, tumor debulking, lymph node assessment
+   - Adjuvant carboplatin AUC 5-6 + paclitaxel 175 mg/m² q3 weeks x 6 cycles
+
+3. If optimal debulking unlikely:
+   - NACT: Carboplatin/paclitaxel x 3-4 cycles
+   - Interval debulking surgery
+   - Complete 6 total cycles of chemotherapy
+
+4. Maintenance therapy (critical):
+   - Olaparib 300 mg BID for 2 years (SOLO1 trial: 70% reduction in progression)
+   - Start after completion of chemotherapy with documented response
+
+5. Family counseling:
+   - Children have 50% risk of BRCA2 mutation
+   - Recommend cascade testing for all first-degree relatives
+   - Discuss breast cancer risk (lifetime risk ~70%)
+   - Consider risk-reducing mastectomy discussion after cancer treatment
+
+Prognosis: BRCA-mutated ovarian cancers have better platinum sensitivity and PARP inhibitor response. 5-year survival ~50% for Stage IIIC with optimal treatment.`
     }
   },
   {
@@ -565,55 +733,77 @@ ECOG Performance Status: 2
 The patient is accompanied by his adult children who want to understand treatment options and prognosis.`,
     groundTruth: `Recommend quadruplet induction with daratumumab-VRd (Dara-bortezomib-lenalidomide-dexamethasone) given high-risk del(17p). Assess transplant eligibility after initial response. Bone-targeted therapy with denosumab and vertebroplasty evaluation for T10 compression fracture. Maintenance should include bortezomib given high-risk cytogenetics.`,
     aiOutput: {
+      modelName: 'Model A',
       reasoningTrace: `Case analysis:
 1. 72-year-old male with newly diagnosed multiple myeloma
-2. CRAB criteria present: Calcium elevated, Renal insufficiency (worsening), Anemia, Bone lesions
-3. High tumor burden: M-spike 3.8, 45% plasma cells in marrow
-4. HIGH-RISK CYTOGENETICS: del(17p) - this is critical for treatment planning
-5. ISS Stage III (beta-2 microglobulin >5.5) → R-ISS Stage III due to del(17p)
-6. Lambda light chain disease with Bence Jones proteinuria (contributing to renal impairment)
+2. CRAB criteria present
+3. HIGH-RISK: del(17p) detected
+4. R-ISS Stage III
 
-Risk stratification:
-- del(17p) is the highest-risk genetic abnormality
-- Associated with shorter remissions and inferior survival
-- Requires aggressive treatment approach
-
-Transplant eligibility:
-- Age 72: On the border - many centers will transplant fit patients up to 75
-- ECOG 2: Moderate impairment, needs improvement
-- CKD and compression fracture complicate picture
-- Should be evaluated but may ultimately be transplant-ineligible
-
-Treatment approach for high-risk:
-- Quadruplet induction now standard for high-risk
-- Dara-VRd showing best outcomes in trials
-- Bortezomib particularly important for del(17p) (overcomes some of the risk)
-- Must include maintenance with more than just lenalidomide
-
-Supportive care needs:
-- Bone stabilization urgent
-- Hypercalcemia treatment
-- Renal protection (avoid nephrotoxins)`,
+Treatment approach:
+- High-risk disease requires aggressive therapy
+- Transplant eligibility borderline at age 72`,
       recommendation: `Recommended Treatment Plan:
 
 1. Immediate supportive care:
-   - IV hydration for hypercalcemia and renal protection
-   - Start bone-targeting agent: Denosumab 120 mg monthly (preferred over bisphosphonate given CKD)
-   - Vertebroplasty evaluation for T10 compression fracture
+   - IV hydration for hypercalcemia
+   - Denosumab 120 mg monthly
+   - Vertebroplasty evaluation for T10
+
+2. Induction therapy: VRd (Bortezomib + Lenalidomide + Dexamethasone)
+   - Plan for 4-6 cycles
+   - Lenalidomide dose reduction for CKD
+
+3. Transplant evaluation after 2-3 cycles
+4. Maintenance: Lenalidomide-based
+
+5. Supportive care: VTE prophylaxis, infection prophylaxis`
+    },
+    aiOutputB: {
+      modelName: 'Model B',
+      reasoningTrace: `High-risk multiple myeloma with del(17p) - requires intensified therapy.
+
+Critical points:
+- del(17p) is highest-risk cytogenetic abnormality
+- Standard VRd is INSUFFICIENT for high-risk disease
+- Daratumumab-based quadruplet now standard for high-risk
+- Age 72 with ECOG 2 - transplant candidacy uncertain
+- CKD requires dose adjustments
+
+Must use evidence-based high-risk regimen, not standard VRd.`,
+      recommendation: `Recommended Treatment Plan:
+
+HIGH-RISK MYELOMA PROTOCOL:
+
+1. Immediate management:
+   - IV fluids + zoledronic acid for hypercalcemia
+   - Denosumab 120 mg SC monthly (preferred over bisphosphonates given CKD)
+   - Interventional radiology consult for T10 vertebroplasty/kyphoplasty
    - Pain management
 
-2. Induction therapy: VRd (Bortezomib 1.3 mg/m² SC weekly + Lenalidomide 25 mg days 1-14 + Dexamethasone 40 mg weekly) in 21-day cycles
-   - Plan for 4-6 cycles initially
-   - Lenalidomide dose reduction may be needed given CKD
+2. Induction: Daratumumab-VRd (D-VRd) quadruplet
+   - Daratumumab 16 mg/kg weekly x 8, then q2 weeks
+   - Bortezomib 1.3 mg/m² SC days 1, 4, 8, 11
+   - Lenalidomide 15 mg days 1-14 (reduced for CKD)
+   - Dexamethasone 40 mg weekly (20 mg if age >75)
+   - Plan for 4-6 cycles
 
-3. Transplant evaluation: Formal assessment after 2-3 cycles if responding and PS improving
+3. Transplant assessment:
+   - Formal evaluation after 2 cycles if responding
+   - Age 72 with ECOG 2 is borderline - depends on response and improvement in PS
+   - If transplant-eligible: Stem cell collection after 4 cycles
 
-4. Maintenance: Lenalidomide-based maintenance following transplant or after extended induction
+4. Maintenance (critical for del(17p)):
+   - Lenalidomide PLUS bortezomib (not lenalidomide alone)
+   - Consider daratumumab maintenance per CASSIOPEIA
 
-5. VTE prophylaxis: Low-dose aspirin
-6. Infection prophylaxis: Acyclovir, consider PCP prophylaxis
+5. Supportive care:
+   - Acyclovir prophylaxis
+   - PCP prophylaxis
+   - VTE prophylaxis with aspirin (or LMWH if high-risk)
+   - IVIG if recurrent infections
 
-Prognosis: With modern therapy, median survival even for high-risk disease is improving. Open, ongoing discussion with patient and family is important.`
+Prognosis: del(17p) historically poor prognosis (median OS 2-3 years), but improving with modern quadruplet regimens.`
     }
   },
   {
@@ -644,56 +834,66 @@ ECOG Performance Status: 1
 The patient is devastated by the diagnosis and is particularly concerned about losing his voice. He asks whether his voice can be preserved and what his treatment options are.`,
     groundTruth: `For T4a laryngeal SCC with cartilage invasion, total laryngectomy with bilateral neck dissection followed by adjuvant radiation offers best local control. Organ preservation with chemoradiation is an alternative but has lower success rates for T4a disease (~50%); requires clear counseling that salvage laryngectomy may be needed.`,
     aiOutput: {
+      modelName: 'Model A',
       reasoningTrace: `Case evaluation:
-1. 56-year-old male with advanced laryngeal squamous cell carcinoma
-2. Risk factors: Heavy smoking and alcohol - classic for laryngeal SCC
-3. Staging: T4a (cartilage invasion) N2b (single ipsilateral node >3cm) M0 = Stage IVA
-4. HPV/p16 negative - not related to HPV, expected for laryngeal primary
-5. Vocal cord fixed - indicates muscle invasion or recurrent laryngeal nerve involvement
-6. Voice already significantly impaired
-7. Moderate COPD - needs consideration for treatment planning
-
-Treatment considerations:
-- T4a laryngeal cancer: Traditionally considered for primary surgery
-- Organ preservation protocols (RTOG 91-11) showed benefit for larynx preservation but:
-  - Original study included T4 but these had lower preservation rates
-  - Cartilage invasion (T4a) is a negative predictor for organ preservation success
-- Patient concerned about voice - but his voice is already very impaired
-- HPV-negative status: Worse prognosis than HPV-positive H&N cancers
-
-Surgical approach:
-- Total laryngectomy required given extent
-- Cannot do partial laryngectomy with fixed cord and T4a disease
-- Neck dissection bilateral vs. ipsilateral only (contralateral appears clear)
-- Adjuvant treatment needed given stage
-
-Chemoradiation approach:
-- Cisplatin-based concurrent with 70 Gy
-- May preserve laryngeal structure but function already compromised
-- Higher locoregional failure risk with T4a
-- Salvage surgery more morbid after radiation
-
-COPD consideration:
-- FEV1 58% - can tolerate laryngectomy
-- Would affect radiation tolerability (esophagitis, etc.)`,
+1. 56-year-old male with advanced laryngeal SCC
+2. T4a (cartilage invasion) N2b M0 = Stage IVA
+3. HPV/p16 negative
+4. Vocal cord fixed
+5. Patient concerned about voice preservation`,
       recommendation: `Recommended Treatment Plan:
 
-Given the patient's strong desire for voice preservation, I recommend a trial of definitive chemoradiation as an organ preservation approach:
+Given the patient's strong desire for voice preservation, I recommend definitive chemoradiation:
 
-1. Smoking cessation: Mandatory - refer to cessation program immediately
-2. Dental evaluation: Pre-radiation dental clearance
-3. PEG tube placement: Prophylactic given expected dysphagia
+1. Smoking cessation: Mandatory
+2. Dental evaluation
+3. PEG tube placement
 4. Chemoradiation:
-   - Cisplatin 40 mg/m² weekly x 7 with concurrent IMRT
+   - Cisplatin 40 mg/m² weekly with concurrent IMRT
    - 70 Gy to primary + involved nodes
-   - 54 Gy to elective nodal regions
-5. Mid-treatment assessment at 4-5 weeks
-6. Post-treatment PET-CT at 12 weeks
-7. Salvage laryngectomy for residual/recurrent disease
+5. Post-treatment PET-CT at 12 weeks
+6. Salvage laryngectomy for residual disease
 
-I believe this approach respects the patient's voice preservation wishes while providing aggressive treatment. The approximately 50% chance of successful organ preservation is worth attempting given how important voice is to this patient's quality of life.
+The ~50% chance of organ preservation is worth attempting given how important voice is to this patient.`
+    },
+    aiOutputB: {
+      modelName: 'Model B',
+      reasoningTrace: `T4a laryngeal cancer with cartilage invasion - challenging case for organ preservation.
 
-Alternative: If patient reconsiders, total laryngectomy with adjuvant radiation provides highest local control.`
+Key considerations:
+- T4a = cartilage invasion - historically poor organ preservation rates
+- Vocal cord already fixed - voice function already significantly impaired
+- HPV-negative - worse prognosis than HPV-positive H&N cancers
+- Ongoing smoking/alcohol - affects treatment outcomes
+- Patient wants voice preservation but must understand realistic expectations
+
+RTOG 91-11 included T4 patients but organ preservation success was lower. Current voice is already very abnormal due to cord fixation.`,
+      recommendation: `Recommended Treatment Plan:
+
+CRITICAL: Honest discussion about options and realistic expectations.
+
+Option 1 - RECOMMENDED: Total laryngectomy + bilateral neck dissection
+- Best local control for T4a disease with cartilage invasion
+- Adjuvant radiation (with cisplatin if positive margins or extranodal extension)
+- Voice rehabilitation: Tracheoesophageal puncture (TEP) speech - most patients achieve intelligible speech
+- 5-year survival: ~50-60%
+
+Option 2 - Organ preservation attempt (if patient strongly prefers after counseling):
+- Concurrent chemoradiation: Cisplatin 100 mg/m² days 1, 22, 43 + 70 Gy IMRT
+- Success rate for T4a: Only ~40-50% (vs 70%+ for T3)
+- Patient must understand:
+  * Current voice already severely impaired (fixed cord)
+  * Even if larynx preserved, voice quality may not recover
+  * High risk of requiring salvage laryngectomy (more morbid after radiation)
+
+MANDATORY regardless of choice:
+1. Smoking cessation - improves outcomes by 30-50%
+2. Alcohol cessation counseling
+3. Dental clearance
+4. Nutrition optimization
+5. Speech pathology consultation
+
+My recommendation: Given T4a with cartilage invasion and already-fixed vocal cord, total laryngectomy offers best chance of cure. TEP speech rehabilitation allows communication. Organ preservation for T4a has high failure rate.`
     }
   }
 ]

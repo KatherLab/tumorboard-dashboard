@@ -1,11 +1,31 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useCasesStore } from '../stores/cases'
 
 const store = useCasesStore()
 const fileInput = ref<HTMLInputElement | null>(null)
 const importError = ref<string | null>(null)
 const importSuccess = ref<string | null>(null)
+
+const isArenaMode = computed(() => store.activeTab === 'arena')
+const currentIdx = computed(() => isArenaMode.value ? store.arenaIndex : store.currentIndex)
+const completedCount = computed(() => isArenaMode.value ? store.completedArenaJudgments : store.completedEvaluations)
+
+function goToPrevious() {
+  if (isArenaMode.value) {
+    store.previousArenaCase()
+  } else {
+    store.previousCase()
+  }
+}
+
+function goToNext() {
+  if (isArenaMode.value) {
+    store.nextArenaCase()
+  } else {
+    store.nextCase()
+  }
+}
 
 function triggerImport() {
   fileInput.value?.click()
@@ -57,10 +77,11 @@ function handleExport() {
 <template>
   <header class="h-16 flex-shrink-0 bg-white border-b border-gray-200 shadow-sm">
     <div class="h-full px-4 flex items-center justify-between">
+      <!-- Left: Navigation -->
       <div class="flex items-center gap-2">
         <button
-          @click="store.previousCase"
-          :disabled="store.currentIndex === 0"
+          @click="goToPrevious"
+          :disabled="currentIdx === 0"
           class="btn btn-outline flex items-center gap-1"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,8 +90,8 @@ function handleExport() {
           Previous
         </button>
         <button
-          @click="store.nextCase"
-          :disabled="store.currentIndex === store.totalCases - 1"
+          @click="goToNext"
+          :disabled="currentIdx === store.totalCases - 1"
           class="btn btn-outline flex items-center gap-1"
         >
           Next
@@ -80,19 +101,51 @@ function handleExport() {
         </button>
       </div>
 
+      <!-- Center: Title, Tabs, and Progress -->
       <div class="flex flex-col items-center">
-        <h1 class="text-lg font-bold text-gray-900">TumorBoardAI Evaluator</h1>
+        <div class="flex items-center gap-4">
+          <h1 class="text-lg font-bold text-gray-900">TumorBoardAI</h1>
+          <!-- Tab Navigation -->
+          <div class="flex bg-gray-100 rounded-lg p-1">
+            <button
+              @click="store.setActiveTab('evaluator')"
+              :class="[
+                'px-3 py-1 text-sm font-medium rounded-md transition-all duration-200',
+                store.activeTab === 'evaluator'
+                  ? 'bg-white text-blue-600 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              ]"
+            >
+              Evaluator
+            </button>
+            <button
+              @click="store.setActiveTab('arena')"
+              :class="[
+                'px-3 py-1 text-sm font-medium rounded-md transition-all duration-200',
+                store.activeTab === 'arena'
+                  ? 'bg-white text-violet-600 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
+              ]"
+            >
+              Arena
+            </button>
+          </div>
+        </div>
         <div class="flex items-center gap-3 text-sm">
-          <span class="font-semibold text-blue-600">
-            Case {{ store.currentIndex + 1 }} of {{ store.totalCases }}
+          <span :class="[
+            'font-semibold',
+            isArenaMode ? 'text-violet-600' : 'text-blue-600'
+          ]">
+            Case {{ currentIdx + 1 }} of {{ store.totalCases }}
           </span>
           <span class="text-gray-400">|</span>
           <span class="text-gray-600">
-            {{ store.completedEvaluations }} evaluated
+            {{ completedCount }} {{ isArenaMode ? 'judged' : 'evaluated' }}
           </span>
         </div>
       </div>
 
+      <!-- Right: Import/Export -->
       <div class="flex items-center gap-2">
         <input
           ref="fileInput"

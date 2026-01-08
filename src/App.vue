@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, computed } from 'vue'
 import { useCasesStore } from './stores/cases'
 import AppHeader from './components/AppHeader.vue'
 import PatientHistory from './components/PatientHistory.vue'
 import ComparisonPane from './components/ComparisonPane.vue'
 import EvaluationSidebar from './components/EvaluationSidebar.vue'
+import ArenaView from './components/ArenaView.vue'
 
 const store = useCasesStore()
+
+const isArenaMode = computed(() => store.activeTab === 'arena')
 
 onMounted(() => {
   store.initializeState()
@@ -26,10 +29,18 @@ function handleKeydown(e: KeyboardEvent) {
 
   if (e.key === 'ArrowLeft') {
     e.preventDefault()
-    store.previousCase()
+    if (isArenaMode.value) {
+      store.previousArenaCase()
+    } else {
+      store.previousCase()
+    }
   } else if (e.key === 'ArrowRight') {
     e.preventDefault()
-    store.nextCase()
+    if (isArenaMode.value) {
+      store.nextArenaCase()
+    } else {
+      store.nextCase()
+    }
   }
 }
 </script>
@@ -38,7 +49,8 @@ function handleKeydown(e: KeyboardEvent) {
   <div class="h-screen w-screen flex flex-col overflow-hidden bg-gray-100">
     <AppHeader />
 
-    <main v-if="store.isInitialized && store.currentCase" class="flex-1 flex overflow-hidden">
+    <!-- Evaluator Mode -->
+    <main v-if="store.isInitialized && store.currentCase && !isArenaMode" class="flex-1 flex overflow-hidden">
       <div class="flex-1 flex flex-col overflow-hidden p-4 gap-4">
         <PatientHistory
           :patient-history="store.currentCase.patientHistory"
@@ -55,6 +67,12 @@ function handleKeydown(e: KeyboardEvent) {
       <EvaluationSidebar class="w-80 flex-shrink-0" />
     </main>
 
+    <!-- Arena Mode -->
+    <main v-else-if="store.isInitialized && store.currentArenaCase && isArenaMode" class="flex-1 flex overflow-hidden">
+      <ArenaView class="flex-1" />
+    </main>
+
+    <!-- Loading State -->
     <div v-else class="flex-1 flex items-center justify-center">
       <div class="text-center">
         <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
