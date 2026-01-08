@@ -79,11 +79,13 @@ function handleExport() {
     <div class="h-full px-4 flex items-center justify-between">
       <!-- Left: Logo and Navigation -->
       <div class="flex items-center gap-4">
-        <img
-          src="https://jnkather.github.io/images/logo.png"
-          alt="Kather Lab Logo"
-          class="h-10 w-auto"
-        />
+        <div class="bg-white rounded-lg px-2 py-1">
+          <img
+            src="https://jnkather.github.io/images/logo.png"
+            alt="Kather Lab Logo"
+            class="h-8 w-auto"
+          />
+        </div>
         <div class="flex items-center gap-2">
           <button
             @click="goToPrevious"
