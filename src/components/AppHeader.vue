@@ -75,7 +75,7 @@ function handleExport() {
 </script>
 
 <template>
-  <header class="h-16 flex-shrink-0 bg-gradient-to-r from-brand-600 to-brand-500 shadow-lg">
+  <header class="h-16 flex-shrink-0 shadow-lg" style="background: linear-gradient(to right, #472183, #4B56D2);">
     <div class="h-full px-4 flex items-center justify-between">
       <!-- Left: Logo and Navigation -->
       <div class="flex items-center gap-4">
@@ -119,9 +119,10 @@ function handleExport() {
               :class="[
                 'px-3 py-1 text-sm font-medium rounded-md transition-all duration-200',
                 store.activeTab === 'evaluator'
-                  ? 'bg-white text-brand-600 shadow-sm'
+                  ? 'bg-white shadow-sm'
                   : 'text-white/80 hover:text-white hover:bg-white/10'
               ]"
+              :style="store.activeTab === 'evaluator' ? 'color: #472183' : ''"
             >
               Evaluator
             </button>
@@ -130,16 +131,17 @@ function handleExport() {
               :class="[
                 'px-3 py-1 text-sm font-medium rounded-md transition-all duration-200',
                 store.activeTab === 'arena'
-                  ? 'bg-white text-brand-600 shadow-sm'
+                  ? 'bg-white shadow-sm'
                   : 'text-white/80 hover:text-white hover:bg-white/10'
               ]"
+              :style="store.activeTab === 'arena' ? 'color: #472183' : ''"
             >
               Arena
             </button>
           </div>
         </div>
         <div class="flex items-center gap-3 text-sm">
-          <span class="font-semibold text-accent-light">
+          <span class="font-semibold" style="color: #82C3EC;">
             Case {{ currentIdx + 1 }} of {{ store.totalCases }}
           </span>
           <span class="text-white/50">|</span>
