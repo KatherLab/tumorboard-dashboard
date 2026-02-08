@@ -128,7 +128,7 @@ function updateReasoning(event: Event) {
             <div class="flex gap-2">
               <button
                 v-for="option in preferenceOptions"
-                :key="option.value"
+                :key="option.value ?? 'null'"
                 @click="selectPreference(option.value)"
                 :class="[
                   'flex-1 px-3 py-2.5 rounded-lg border-2 transition-all duration-200 flex items-center justify-center gap-2',
