@@ -48,6 +48,9 @@ function handleKeydown(e: KeyboardEvent) {
 <template>
   <div class="h-screen w-screen flex flex-col overflow-hidden bg-gray-100">
     <AppHeader />
+    <div class="text-center text-[10px] text-gray-400 py-0.5 bg-gray-50 border-b border-gray-200">
+      Research project &middot; Kather Lab &middot; <a href="https://kather.ai/#impressum" class="underline text-gray-400 hover:text-gray-600">Impressum</a>
+    </div>
 
     <!-- Evaluator Mode -->
     <main v-if="store.isInitialized && store.currentCase && !isArenaMode" class="flex-1 flex overflow-hidden">
